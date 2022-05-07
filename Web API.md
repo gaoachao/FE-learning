@@ -325,4 +325,5 @@ function fn(){
 
 事件发生时会在元素节点之间按照特定的顺序传播，这个传播过程即DOM事件流。
 
-![alt DOM](https://github.com/gaoachao/JS-advanced/raw/main/Screenshots/1.png)
+![alt DOM](https://github.com/gaoachao/FE-learning/raw/main/Screenshots/1.png)
+
