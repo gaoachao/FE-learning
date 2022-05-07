@@ -697,15 +697,368 @@ str是我们要检测的文本
 
 var reg1 = /^abc{3}$/
 var reg2 = /^(abc){3}$/
+
 ```
 
+**正则表达式中的替换**
 
+```
+/表达式/[switch]
+switch:
+g:全局匹配
+i:忽略大小写
+gi:全局匹配+忽略大小写
 
+var text = document.querySelector('texteara');
+var btn = document.querySelector('button');
+var div = document.querySelector('div');
+btn.onclick = function(){
+	div.innerHTML = text.value.replace(/激情|gay/g,'**'); //完成敏感词的替换。
+}
+```
 
+#### ES6
 
+ES全称:ECMAScript
 
+ES6实际上是一个泛指，泛指ES2015及后续的版本。
 
+#### let
 
+1. let声明的变量只在所处于的块级有效。（块级作用域）
 
+在一个大括号内使用var关键字声明的变量不具有块级作用域。
 
+```javascript
+if(true){
+	let a = 10;
+    var c = 10;
+    console.log(a);  //10
+    if(true){
+        let b = 10;
+    }
+    console.log(b);  //b is not defined
+}
+console.log(a);    //a is not defined
+console.log(c);    //10
+```
+
+2. let关键字可以防止循环变量变成全局变量
+
+```javascript
+for(let i = 0;i < 2;i ++){
+}
+console.log(i);  //i is not defined
+```
+
+3. 不存在变量提升
+
+```
+console.log(a);
+let a = 10;  
+//a is not defined
+```
+
+4. 暂时性死区
+
+```
+var tmp = 10;
+if(true){
+	console.log(tmp);
+	let tmp = 20;
+}
+//num is not defined; 因为在大括号内 let关键字又定义了一次变量。
+```
+
+#### const
+
+const作用：声明常量，
+
+1. const声明的常量具有块级作用域
+
+```javascript
+if(true){
+	const a = 10;
+	if(true){
+		const a = 20;
+		console.log(a);  //20
+	}
+	console.log(a);     //10
+}
+console.log(a);     //a is not defined
+```
+
+2. const声明常量的时候必须赋初始值。
+3. 常量赋值后，值不可更改。
+
+复杂数据类型如数组可以更改数据内部的值，但不能更改数据值本身（会改变地址）。
+
+```javascript
+const PI = 3.14;
+PI = 100;   //assignment to constant variable
+const ary = [100,200];
+ary[0] = 123;
+console.log(ary);  //[123,200]
+ary = [1,2];   
+console.log(ary);  //assignment to constant variable
+```
+
+#### 解构赋值(数组)
+
+ES6中允许从数组中提取值，按照对应位置，对变量赋值。
+
+```javascript
+let ary = [1,2,3];
+let [a,b,c,d,e] = ary;   
+console.log(a);   //1
+console.log(b);   //2
+console.log(c);   //3
+console.log(d);   //undefined
+console.log(e);   //undefined
+```
+
+#### 解构赋值(对象)
+
+```javascript
+let person = {
+	name:'zhangsan',
+	age:30,
+	sex:'男'
+}
+let {name,age,sex} = person;
+let {name:myname,age:myage,sex:maysex} = person;
+//:左侧的name、age、sex只是用来进行变量匹配
+```
+
+#### 箭头函数
+
+箭头函数是ES6后用来简化函数定义语法的一种函数定义形式
+
+```javascript
+const fn = () => {
+	console.log(123);
+}
+fn();
+```
+
+1. 函数体中只有一句代码，且代码的执行结构就是返回值，可以省略大括号。
+
+```javascript
+function sum(num1,sum2){
+    return num1 + num2；
+}
+const sum = (num1,num2) => num1 + num2;
+```
+
+2. 如果形参只有一个，可以省略小括号。
+
+```javascript
+const fn = (v) => {alert(v);}
+fn(20);
+
+const fn = v =>{alert(v);}
+fn(20);
+```
+
+#### 箭头函数内的this关键字
+
+箭头函数不绑定this关键字，箭头函数中的this，指向的是函数定义位置的上下文this。
+
+```javascript
+function fn(){
+	console.log(this);
+	return () => {
+		console.log(this);
+	}
+}
+const obj = {name:'zhangsan'};
+fn.call(obj);
+//箭头函数内部的this指向的是 obj，因为箭头函数不绑定this关键字，直接用fn的this而fn的this用call()方法更改为指向obj，故箭头函数的this指向了obj
+
+var age = 100;
+var obj = {
+    age: 20,
+    say:()=>{
+        alert(this.age);
+    }
+}
+obj.say();   //alert 100;
+//因为obj是不能产生作用域的，调用say的时候，this==window
+```
+
+#### 剩余参数
+
+剩余参数语法（三个点）允许我们将一个不定数量的参数表示为一个数组。`(...args)`
+
+```javascript
+const sum = (...args) =>{
+	let total = 0;
+	args.forEach(item => total += item); //forEach()的括号内是箭头函数的略写。
+	return total；						//item一个形参省略小括号，return数值省略大括号
+};									     
+sum(10,20);    //30
+sum(10,20,30); //60
+```
+
+剩余参数与解构配合使用
+
+```javascript
+let ary1 = ['张三','李四','王五'];
+let [s1,...s2] = ary1;
+console.log(s1);  //张三
+console.log(s2);  //['李四','王五']
+```
+
+#### 扩展运算符
+
+1. 扩展运算符可以将数组或者对象转为用逗号分隔的参数序列。
+
+```javascript
+let ary = [1,2,3];
+...ary    //1,2,3
+console.log(...ary);   //1 2 3
+console.log(1,2,3);    //1 2 3
+```
+
+2. 扩展运算符可以应用于合并数组
+
+```javascript
+let ary1 = [1,2,3];
+let ary2 = [4,5,6];
+let ary3 = [...ary1,ary2];
+console.log(ary3);  // [1,2,3,4,5,6]
+
+ary1.push(...ary2);
+console.log(ary1);   //[1,2,3,4,5,6]
+```
+
+3. 扩展运算符可以将伪数组或可遍历对象转换为真正的数组
+
+```javascript
+let oDivs = document.getElenmentsByTagName('div');
+console.log(oDivs);   //伪数组
+let ary =[...oDivs];  //转换为真正的数组
+为什么要这么做？  因为转换为真正的数组后我们就可以用数组方法来处理伪数组
+```
+
+#### Array的扩展方法
+
+`Array.from()`将伪数组或可遍历对象转换为真正的数组
+
+该方法还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组。
+
+```javascript
+var arrayLike = {
+	"0":"张三"，
+	"1":"李四"，
+	"2":"王五"，
+	"length":3
+}
+var arr = Array.from(arrayLike);
+console.log(arr);
+
+var arrayLike2 = {
+    "0":"1",
+    "1":"2",
+    "length":2
+}
+var ary = Array.from(arrayLike,item => item * 2)
+console.log(ary);  //[2,4]
+```
+
+`Array.find()`用于找出第一个符合条件的数组成员，如果没有找到就返回undefined
+
+```javascript
+let ary = [{
+	id:1,
+	name:'张三'
+},{
+	id:2,
+	name:'李四'
+}]；
+let target = ary.find((item,index) => item.id == 2);  //index可以省略
+console.log(target); //输id=2的对象
+```
+
+`findIndex()`用于找出第一个符合条件的数组成员的位置，如果没有则返回-1
+
+```javascript
+let ary = [10,20,50];
+let index = ary.findIndex(item => intem > 15);
+console.log(index);  //1
+```
+
+`includes()`表示某个数组是否包含给定的值，返回布尔值
+
+```
+[1,2,3].includes(2);  //true
+[1,2,3].includes(4);  //false
+```
+
+#### String的扩展方法
+
+ES6新增的创建字符串的方式，使用反引号定义。
+
+模板字符串中可以解析变量。
+
+```javascript
+let name = 'zhangsan';
+let sayHello = 'my name is ${name}';  //my name is zhangsan
+```
+
+模板字符串可以换行
+
+```javascript
+let result = {
+	name:"zhangsan",
+	age:20
+};
+let html =`
+	<div>
+		<span>${result.name}</span>
+		<span>${result.age}</span>
+	</div>
+`;
+console.log(html);
+```
+
+在模板字符串中可以调用函数
+
+```
+const sayHello = function(){
+	return '我是fn函数'
+};
+let html = `我是模板字符串 ${fn()} `;
+console.log(html);
+```
+
+`startsWith()`：表示参数字符串是否在原字符串的头部，返回布尔值。
+
+`endsWith()`：表示参数字符串是否在原字符串的尾部，返回布尔值。
+
+```
+let str = 'Hello world !'
+str.startWith(hello);  //true
+str.endsWith(!);  //true
+```
+
+`repeat()`：返回一个字符串，参数是重复的次数
+
+```
+console.log("y".repeat(5));
+```
+
+#### Set数据结构
+
+ES6提供了新的数据结构Set。类似于数组，但成员的值是唯一的，没有重复的值。
+
+可以利用Set数据结构去重。
+
+```
+const s1 = new Set();
+console.log(s1.size); //0
+
+const s2 = new Set([1,1,2,2]);
+console.log(s2.size);  //2
+```
 
