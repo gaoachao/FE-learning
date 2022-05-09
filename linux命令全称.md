@@ -2,11 +2,11 @@
 
 # Linux命令缩写的全称
 
-**【前言】**
+#### 【前言】
 
 为了方便记忆linux命令，bitter-gourd决定整理一写linux命令缩写的全称。
 
-**【目录|文件】**
+#### 【目录|文件】
 
 ls : list(列出目录内容)
 
@@ -26,7 +26,7 @@ cp : copy file(复制文件)
 
 cat : concatenate(连锁)
 
-**【系统|权限】**
+#### 【系统|权限】
 
 su : switch user(切换用户)
 
@@ -38,7 +38,7 @@ chgrp: change group(用于改变文件或所属的用户组)
 
 chmod: change mode(用于变更文件或目录的权限)
 
-**【进程|磁盘】**
+#### 【进程|磁盘】
 
 ps : process status(进程状态，类似于wins任务管理器)
 
@@ -48,7 +48,7 @@ df : disk free(显示磁盘可用空间数目信息及空间节点信息。换�
 
 du : disk usage(查看已使用空间)
 
-**【打包管理】**
+#### 【打包管理】
 
 rpm : redhat package manger(红帽子打包管理器)
 
@@ -56,7 +56,7 @@ dpkg: debian package manager
 
 apt: advanced package tool
 
- **【文件后缀】**
+####  【文件后缀】
 
 文件结尾的rc: resource configratin(如 .xinitrc, .bashrc等)
 
@@ -68,7 +68,7 @@ knnxxx/snnxxx(位于rcx.d目录下):k(kill),s(service);nn(执行顺序号);xxx(�
 
 .o(扩展名o): olbject file, compiled result of c/c++ source file
 
-**【其他】**
+#### 【其他】
 
 insmod: install module(载入模块)
 
@@ -96,7 +96,7 @@ tar : tape archive
 
 ldd : list dynamic dependencies
 
-**【部分linux 目录|参数 缩写】**
+#### 【部分linux 目录|参数 缩写】
 
 bin = binarines
 
