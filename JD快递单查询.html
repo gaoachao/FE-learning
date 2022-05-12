@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>模仿JD快递查找</title>
+    <style>
+      .father-box {
+        display:flex;
+        flex-direction: column;
+        height:200px;
+        width: 200px;
+      }
+      .display-box {
+        height:40px;
+        font-size: 40px;
+        display:none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="father-box">
+      <div class="display-box"></div>
+      <input type="text" placeholder="请输入您的快递单号" class="input-box"></input>
+    </div>
+    <script>
+      var con = document.querySelector('.display-box');
+      var JD_input = document.querySelector('.input-box');
+      JD_input.addEventListener('keyup',function(){
+        if(this.value == ''){
+          con.style.display = 'none';
+
+        } else {
+          con.style.display = 'block';
+          con.innerText = this.value;
+        }
+        //div只能通过 innerText 作为内容
+      });
+    </script>
+  </body>
+</html>
