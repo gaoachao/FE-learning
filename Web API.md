@@ -492,3 +492,111 @@ document.addEventListener('keyup',function(e){
 })
 ```
 
+### BOM
+
+#### 什么是BOM
+
+BOM是浏览器对象模型，它提供了独立于内容而与浏览器窗口进行交互的对象，其核心对象为window。它是JS访问浏览器的一个接口。
+
+BOM由一系列的对象构成，并且每个对象都提供了很多的方法与属性。
+
+BOM缺乏标准，JS的语法标准化阻止是ECMA，DOM的标准化组织是W3C。因此兼容性差。
+
+BOM包含DOM。window(document,location,navigation,screen,history)
+
+#### 窗口加载事件
+
+```
+window.onload = function(){}
+或者
+window.addEventListener('load',function(){});
+```
+
+window.onload是串口（页面）加载事件，当文档内容完全加载完成后会触发该事件（包括图像、脚本文件、CSS文件等），就调用的处理函数。
+
+1. 有了`window.onload`就可以把JS代码写到页面元素上方，因为onload是等页面全部加载完毕后再去执行处理函数。
+2. `window.onload`传统注册事件只能写一次，如果有多个，会以最后一个`window.inload`为准。但用`addEventListener`则可以注册多个。
+3. `DOMContentLoaded`事件触发的时候，仅当DOM加载完毕，不包括样式表、图片、flash等。如果页面的图片很多的话，从用户访问到`onload`触发可能需要较长的事件，交互效果就不能实现，必然会影响用户体验，此处用`DOMContentLoaded`事件比较合适。
+
+#### 调整窗口大小事件
+
+```
+window.addEventListener('resize',function(){
+	
+})
+```
+
+1. 只要窗口大小发生变化就会触发。
+2. 我们经常利用这个事件完成响应式布局。`window.innerWidth`是当前的屏幕的宽度。
+
+### 定时器
+
+```
+window.setTimeout(function(){
+	
+},1000)
+var timer1 = setTimeout(callback,1000);
+var timer2 = setTimeout(callback,2000);
+
+clearTimeout(timer1);  //可以用来停止定时器
+setInterval(callback,1000);  //间隔定时器（每隔一定时间不断调用）
+clearInterval();
+```
+
+1. window可以省略。
+2. 延时时间的单位是ms，可以省略。
+3. 调用函数的位置可以是直接定义函数也可以写函数名。或者`'函数名()'`。
+4. 页面中可能有很多的定时器，我们经常给定时器加标识符（名字）。
+
+5. 在定时器内的函数我们也称为回调函数`callback`，普通函数是按找代码顺序执行的，但是这个函数需要等待时间，时间到了采取调用这个函数，因此称为回调函数。简单理解：回调，就是回头调用的意思，上一件事情干完，回头在调用这个函数。
+6. 清除定时器`window.clearTimeout(timer)`。
+7. `setInterval(callback,1000)`也是一个定时器，区别在于每隔1s都会调用函数，而`setTimeout()`只会调用一次。
+
+#### 定时器实现倒计时
+
+```javascript
+var hour = document.querySelector('.hour');
+var minute = document.querySelector('.minute');
+var second = document.querySelector('.second');
+var inputTime = +new Date('2022-5-13 18:00:00');  //返回的是用户输入时间的总的毫秒数
+setInterval(countDown,1000);
+function countDown(){
+	var nowTime = +new Date();  //返回的是当前时间的总的毫秒数
+	var times = (inputTime - nowTime ) / 1000;
+	var d = parseInt(times / 60 / 60 / 24);
+	d = d < 10 ? '0' + d : d;
+	var h = parseInt(times / 60 / 60 % 24);
+	h = h < 10 ? '0' + h : h;
+    hour.innerHTML = h;
+	var m = parseInt(times / 60 % 60);
+	m = m < 10 ? '0' + m : m;
+    minute.innerHTML = m;
+	var s = parseInt(times % 60);
+	s = s < 10 ? '0' + s : s;
+    second.innerHTML = s;
+}
+```
+
+#### 定时器实现按钮禁用和复原
+
+```javascript
+var btn = document.quertSelector('button');
+var time = 3;
+btn.addEventListener('click',function(){
+	btn.disabled = true;
+	var timer = setInterval(function(){
+		if(time == 0){
+			btn.disabled = false;
+			clearInterval(timer);
+			button.innerHTML = '发送'；
+			time = 3;
+		} else {
+			btn.innerHTML = '还剩下'+ time +'秒';
+			time --;
+		}
+	},1000);
+});
+```
+
+
+

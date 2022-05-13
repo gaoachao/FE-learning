@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>document</title>
+  <style>
+    .count-down {
+      height:40px;
+      width:120px;
+      display:flex;
+      flex-direction: row;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="count-down">
+    <div class="hour"></div>
+    <div class="minute"></div>
+    <div class="second"></div>
+  </div>
+  <script>
+    var hour = document.querySelector('.hour');
+    var minute = document.querySelector('.minute');
+    var second = document.querySelector('.second');
+    var inputTime = +new Date('2022-5-13 20:00:00');  //返回的是用户输入时间的总的毫秒数
+    coutDown();   //先调用一次函数，防止第一次刷新页面有空白
+    setInterval(countDown, 1000);
+    function countDown() {
+      var nowTime = +new Date();  //返回的是当前时间的总的毫秒数
+      var times = (inputTime - nowTime) / 1000;
+      var d = parseInt(times / 60 / 60 / 24);
+      d = d < 10 ? '0' + d : d;
+      var h = parseInt(times / 60 / 60 % 24);
+      h = h < 10 ? '0' + h : h;
+      hour.innerHTML = h;
+      var m = parseInt(times / 60 % 60);
+      m = m < 10 ? '0' + m : m;
+      minute.innerHTML = m;
+      var s = parseInt(times % 60);
+      s = s < 10 ? '0' + s : s;
+      second.innerHTML = s;
+    }
+  </script>
+</body>
+
+</html>
