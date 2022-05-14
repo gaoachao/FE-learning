@@ -445,6 +445,12 @@ e.screenX     返回鼠标相对于电脑屏幕的X坐标
 e.screenY     返回鼠标相对于电脑屏幕的Y坐标
 ```
 
+**`mouseenter`和`mouseover`的区别**
+
+`mouseenter`只会在经过自身盒子的时候触发；`mouseover`在鼠标经过自身盒子的时候触发同时也会在鼠标经过子盒子的时候触发。
+
+原因：`mouseenter`不会冒泡。
+
 **如何做一个鼠标图案？**
 
 ```javascript

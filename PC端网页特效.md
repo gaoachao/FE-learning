@@ -128,3 +128,29 @@ clientLeft		返回元素左边框的大小
 
 此时可以使用`pageshow`事件来触发，这个事件在页面显示的时候触发，无论页面是否来自缓存，在重新加载页面中，`pageshow`会在load事件触发后触发；根据事件对象中的persisted来判断是否是缓存中的页面触发的`pageshow`事件。
 
+### 元素滚动scroll
+
+```
+scrollTop		返回被卷去的上侧距离，返回数值不带单位
+scrollLeft		返回被卷去的左侧距离，返回数值不带单位
+scrollWidth		返回自身实际的宽度，不含边框，返回数值不带单位
+scrollHeight	返回自身实际的高度，不含边框，返回数值不带单位
+window.pageYOffset		页面被卷去的头部长度，返回数值不带单位
+```
+
+#### 页面被卷去头部长度兼容性问题
+
+1. 声明了`DTD`，使用`document.documentElement.scrollTop`
+2. 未声明`DTD`，使用`document.body.scrollTop`
+3. 新方法（IE9开始支持）`window.pageYOffset`和`window.pageXOffset`
+
+```javascript
+function getScroll(){
+	return{
+		left:window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLetf || 0;
+		top:window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+	}
+}
+//然后在使用的时候  getScroll().left 或者 getScroll().top 
+```
+
