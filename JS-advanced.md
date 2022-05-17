@@ -747,6 +747,7 @@ console.log(c);    //10
 
 ```javascript
 for(let i = 0;i < 2;i ++){
+    
 }
 console.log(i);  //i is not defined
 ```
