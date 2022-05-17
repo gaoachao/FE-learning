@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>65
+    <button>GET</button>
+    <button>POST</button>
+    <button>AJAX</button>
+
+    <script>
+        const btns = document.querySelectorAll('button');
+        axios.defaults.baseURL = 'http://127.0.0.1:8000';
+        btns[0].addEventListener('click', function () {
+            axios.get('/axios-server', {
+                //url 参数
+                params: {
+                    a: 100,
+                    b: 200
+                },
+                //请求头信息
+                header: {
+                    age: 19,
+                    name: 'bitter-gourd'
+                }
+            }).then(value => {
+                console.log(value);
+            });
+        });
+        btns[1].addEventListener('click', function () {
+            axios.post('/axios-server', {
+                username: 'admin',
+                password: 'admin'
+            }, {
+                //url 参数
+                params: {
+                    a: 100,
+                    b: 200
+                },
+                //请求头信息
+                headers: {
+                    age: 19,
+                    name: 'bitter-gourd',
+                }
+            });
+        });
+        btns[2].addEventListener('click', function () {
+            axios({
+                method:'POST',
+                url:'/axios-server',
+                params:{
+                    vip:10,
+                    level:30
+                },
+                headers:{
+                    a:100,
+                    b:200
+                },
+                data:{
+                    username:'admin',
+                    password:'admin'
+                }
+            }).then(response=>{
+                console.log(response);
+            })
+        });
+    </script>
+</body>
+
+</html>
