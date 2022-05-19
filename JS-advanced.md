@@ -99,7 +99,7 @@ Father.prototype.money = function(){
 }
 function Son(uname,age){
    Father.call(this,uname,age); //此处的this是Son中的this，this指向的是Son这个对象
-   //call的作用是把父构造函数中的this修改为自构造函数中的this
+   //call的作用是把父构造函数中的this修改为子构造函数中的this
 }
 //Son.prototype = Father.prototype;  这样赋值是错误的，如果修改子原型对象，父原型对象也会修改
 Son.prototype = new Father();   //实例化一个对象，让Son的原型函数拿到父构造函数的方法同时又不会使改变子构造函数的时候改变父构造函数。
